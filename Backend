@@ -1,0 +1,5 @@
+The main steps should be-
+Set up the tomcat server
+Set up the dynamo db and connection with the workbench
+Also there are certain changes in the code
+And yah cloning,SSH key , set up the env variable for java and maven setup
