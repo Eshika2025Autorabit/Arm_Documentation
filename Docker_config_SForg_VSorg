@@ -1,0 +1,35 @@
+Steps to set the docker-
+1.On the rabit repository go Dockerfile and remove "-dev" from line no. 30 - 
+COPY frontend/nginx.conf /etc/nginx/nginx.conf
+2.Now go to docker-compose.yml file and run the docker container. 
+ 
+3.Now try to run localhost:8091- It will ask for user password and username.
+4.For that start the dynamo db and go to nosql workbench and search for userpassword table there we need to set up.
+   Set Attribute name-currentPassword 
+   Set operator - "="
+   Set Type- String
+   Set Attribute value -$2a$12$uQCYAIdkjN6WSwZ4Jc1AGuYP/vmSl8sac4.uOOrn4659nVXlvmZW.
+   and then click scan
+5.Then go to localhost:8091 and create a user for demo, there replace the old password with the new password.
+6.Now once login create the salesforce org and vc org.
+7.For localhost:8091 to run the docker should be started and db should be started and tomcat should also be started.
+8. To create the sales force org-
+     Go to sales org and fill the name, provider as oauth and validate.
+      It will show the regret page and then correct the port of the url to 8955/rabit/
+     Then login page ill open, fill the credentials.
+     After login page will open where you need to allow.
+    After allow  we redirect to http://localhost:8955/rabit/oauth/_callback?code=
+    Then for the above url change the port to 8091 (frontend) and remove /rabit/
+    Then you will get the new user created to salesforce org page on arm application.
+9. For docker there will be change in config of two files- > nginx-dev.conf and nginx.conf
+10. Comment the lines in UserServiceImpl.java  from 372 to 381 and 390 to 393 to avoid the following error-
+ 
+LOG.error("Admin mail body is empty. Please check the admin template and update it.");
+//            throw new RabitServicesException(ExceptionCode.MAILBODYEMPTY.getCode(), ExceptionCode.MAILBODYEMPTY.getDescription());
+//        }
+ 
+11.To create vc org-
+Create the repo on githib using autorabit email and then craete one classic token and copy it.
+Then on the vc org option of the arm app name the vc org and paste the url of the repo.
+Then choose the git branch and provide the credentials the username and the token as the password.
+Then the vc org is created and then chk the mapping and the connection.
